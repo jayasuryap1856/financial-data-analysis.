@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FinWhisper - Automated Financial Data Analytics System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0d14;
+      --surface: #111520;
+      --card: #161c2d;
+      --accent: #c9a84c;
+      --accent2: #e8c97a;
+      --text: #e8e8e0;
+      --muted: #8a8f9e;
+      --border: rgba(201,168,76,0.18);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: 56px;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+      background: rgba(201,168,76,0.06);
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 15px;
+      letter-spacing: 0.03em;
+    }
+
+    /* Divider */
+    .divider {
+      width: 64px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin: 32px 0;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 36px 40px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.7s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--accent), transparent);
+    }
+
+    .card-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .card p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #c0c4d0;
+    }
+
+    /* Abstract card special */
+    .abstract-text {
+      font-size: 15.5px;
+      line-height: 1.9;
+      color: #cdd0dc;
+      border-left: none;
+    }
+
+    /* Points list */
+    .points {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: #b8bcc8;
+      margin-bottom: 12px;
+    }
+
+    .points li::before {
+      content: '◆';
+      font-size: 8px;
+      color: var(--accent);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    /* Tech stack badges */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .badge {
+      background: rgba(201,168,76,0.08);
+      border: 1px solid var(--border);
+      color: var(--accent2);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 2px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .footer-label {
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+    .card:nth-child(5) { animation-delay: 0.5s; }
+    .card:nth-child(6) { animation-delay: 0.6s; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="tag">Problem Statement Document</div>
+    <h1>FinWhisper<br/><span>Automated Financial Data Analytics System</span></h1>
+    <p class="subtitle">Supporting Document — CIDECODE Hackathon Submission</p>
+    <div class="divider"></div>
+  </div>
+
+  <!-- Abstract -->
+  <div class="card">
+    <div class="card-label">Abstract</div>
+    <h2>Problem Statement Abstract</h2>
+    <p class="abstract-text">
+      Most financial information is locked up in huge amounts of unstructured data that are difficult to access, whether they are annual reports, balance sheets, or transcripts of earnings calls, because the information is only available to those who have the right expertise and tools to interpret it. This means that there is a major information imbalance between institutional investors that have proprietary analytics systems and retail investors or SMEs who do not.
+    </p>
+    <p class="abstract-text" style="margin-top: 16px;">
+      To bridge this gap, we propose <strong>FinWhisper</strong>, an end-to-end automated financial data analytics platform that integrates NLP, Machine Learning and Large Language Model capabilities in one platform. Four core modules are developed: a Document Intelligence Module based on PyMuPDF/pdfplumber/spaCy for extracting KPIs from raw financial documents and a Beneish M-Score based fraud detection module, a Sentiment Analysis Module with FinBERT for scoring the management tone and hedging language in earnings transcripts, and a Predictive Signal Engine using XGBoost with SHAP explainability to predict buy/sell/hold signals correlated with stock price movement over yfinance. The Conversational Q&A Module utilizes the Claude API for natural language document queries.
+    </p>
+    <p class="abstract-text" style="margin-top: 16px;">
+      It is developed using the Next.js Frontend, FastAPI Backend, PostgreSQL Database and scikit-learn pipelines, deployed by Vercel and Railway. FinWhisper makes financial intelligence accessible to retail investors, small and medium enterprises (SMEs) and analysts, and automates the entire financial workflow from document ingestion to explainable, actionable insights.
+    </p>
+  </div>
+
+  <!-- Architecture -->
+  <div class="card">
+    <div class="card-label">System Architecture</div>
+    <h2>Platform Architecture Overview</h2>
+    <div style="margin-top: 20px; background: rgba(0,0,0,0.3); border-radius: 6px; padding: 16px; border: 1px solid rgba(201,168,76,0.12);">
+      <img src="architecture_diagram.png" alt="FinWhisper System Architecture" style="width: 100%; height: auto; border-radius: 4px; display: block;"/>
+    </div>
+  </div>
+
+  <!-- Core Modules -->
+  <div class="card">
+    <div class="card-label">Core Modules</div>
+    <h2>System Components</h2>
+    <ul class="points">
+      <li><strong>Document Intelligence Module:</strong> PyMuPDF/pdfplumber/spaCy for KPI extraction and Beneish M-Score fraud detection</li>
+      <li><strong>Sentiment Analysis Module:</strong> FinBERT for scoring management tone and hedging language</li>
+      <li><strong>Predictive Signal Engine:</strong> XGBoost with SHAP explainability for buy/sell/hold signals</li>
+      <li><strong>Conversational Q&A Module:</strong> Claude API for natural language document queries</li>
+    </ul>
+  </div>
+
+  <!-- Tech Stack -->
+  <div class="card">
+    <div class="card-label">Technology Stack</div>
+    <h2>Tools &amp; Technologies</h2>
+    <div class="badges">
+      <span class="badge">Next.js</span>
+      <span class="badge">TailwindCSS</span>
+      <span class="badge">FastAPI</span>
+      <span class="badge">PostgreSQL</span>
+      <span class="badge">Redis</span>
+      <span class="badge">FinBERT</span>
+      <span class="badge">XGBoost</span>
+      <span class="badge">spaCy</span>
+      <span class="badge">SHAP</span>
+      <span class="badge">Claude API</span>
+      <span class="badge">yfinance</span>
+      <span class="badge">Vercel</span>
+      <span class="badge">Railway</span>
+      <span class="badge">HuggingFace</span>
+    </div>
+  </div>
+
+  <!-- Coming Soon -->
+  <div class="card" style="border: 2px dashed var(--border); background: rgba(201,168,76,0.02);">
+    <div class="card-label">Coming Soon</div>
+    <h2>Future Features</h2>
+    <ul class="points">
+      <li>Advanced portfolio optimization algorithms</li>
+      <li>Real-time market sentiment tracking from news and social media</li>
+      <li>Multi-language support for international financial documents</li>
+      <li>Enhanced visualization dashboards with custom KPI tracking</li>
+      <li>API integrations with major brokerage platforms</li>
+      <li>Mobile app for iOS and Android</li>
+    </ul>
+  </div>
+
+  <!-- Team -->
+  <div class="card">
+    <div class="card-label">Team</div>
+    <h2>Meet the Team</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px;">
+      <div style="padding: 16px; background: rgba(201,168,76,0.05); border-radius: 4px; border: 1px solid var(--border);">
+        <div style="font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px;">Jayasurya P</div>
+        <div style="font-size: 12px; color: var(--muted);">Team Member</div>
+      </div>
+      <div style="padding: 16px; background: rgba(201,168,76,0.05); border-radius: 4px; border: 1px solid var(--border);">
+        <div style="font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px;">K Sai Suchith</div>
+        <div style="font-size: 12px; color: var(--muted);">Team Member</div>
+      </div>
+      <div style="padding: 16px; background: rgba(201,168,76,0.05); border-radius: 4px; border: 1px solid var(--border);">
+        <div style="font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px;">Samarth P Reddy</div>
+        <div style="font-size: 12px; color: var(--muted);">Team Member</div>
+      </div>
+      <div style="padding: 16px; background: rgba(201,168,76,0.05); border-radius: 4px; border: 1px solid var(--border);">
+        <div style="font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px;">Sujay Girish Kumar</div>
+        <div style="font-size: 12px; color: var(--muted);">Team Member</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span class="footer-label">CIDECODE Hackathon Submission · 2026</span>
+    <span class="footer-tag">FinWhisper Financial Analytics System</span>
+  </div>
+
+</div>
+</body>
+</html>
